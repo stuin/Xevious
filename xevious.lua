@@ -4,6 +4,8 @@ local colorMap = {
 	["."]=colors.yellow,
 	[","]=colors.yellow,
 	["~"]=colors.blue,
+	["r"]=colors.orange,
+	["R"]=colors.red,
 	["S"]=colors.lime,
 	["F"]=colors.blue,
 	["g"]=colors.lime,
@@ -15,6 +17,7 @@ local colorMap = {
 	["H"]=colors.lime,
 	["h"]=colors.green,
 	["C"]=colors.brown,
+	["-"]=colors.lime,
 	["0"]=colors.black
 }
 
@@ -30,15 +33,6 @@ while line do
 end
 io.close(file)
 
-local speaker = peripheral.find("speaker")
-local musicFrame = 1
-local music = {
-	18, 20, 18, 17, 20, 17, 16, 20, 16, 15, 20, 15
-}
-
-local area = 1
-local scrollY = #world-17
-
 local entities = {
 	{"Player", "^", 7, 16, colors.white},
 	{"Crosshair", "+", 7, 12, colors.white},
@@ -46,12 +40,19 @@ local entities = {
 }
 local maxEntity = 3
 
+local scrollY = #world-17
 local bulletTimer = 0
 local bomb = 0
 local shooting = false
 local score = 0
 local lives = 3
 local playing = true
+
+local speaker = peripheral.find("speaker")
+local musicFrame = 1
+local music = {
+	18, 20, 18, 17, 20, 17, 16, 20, 16, 15, 20, 15
+}
 
 local function nextEntity()
 	for i=4,maxEntity do
@@ -110,7 +111,8 @@ end
 
 local function hitBullet(x,y, type)
 	for j=4,maxEntity do
-		if entities[j] ~= nil and entities[j][1] == type and math.floor(x)==entities[j][3] and math.floor(y)==entities[j][4] then
+		if entities[j] ~= nil and entities[j][1] == type and x==entities[j][3] and
+			(y>=entities[j][4] and y<=entities[j][4]+1) then
 			return true
 		end
 	end
@@ -160,32 +162,52 @@ local function update(scroll)
 	--General updates
 	for i=4,maxEntity do
 		local x,y = 0,0
+		local n = ""
 		if entities[i] ~= nil then
 			x = math.floor(entities[i][3])
 			y = math.floor(entities[i][4])
+			n = entities[i][1]
 		end
 
 		if entities[i] == nil then
 
 		elseif x < 1 or x > 14 or y > 17 then
+			--Edges
 			entities[i] = nil
 		elseif entities[i][1] == "Laser" then
+			--Move forward
 			entities[i][4] = entities[i][4] - 1
 			if entities[i][4] < 1 then
 				entities[i] = nil
 			end
-		elseif entities[i][1] == "Toroid" or entities[i][1] == "Torkan" or entities[i][1] == "Bullet" then
-			if hitBullet(entities[i][3], entities[i][4], "Laser") and entities[i][1] ~= "Bullet" then
-				if entities[i][1] == "Toroid" then
+		elseif n == "Toroid" or n == "Torkan" or n == "Bullet" or n == "Bacura" then
+			if hitBullet(x, y, "Laser") and n ~= "Bullet" then
+				--Hit by player laser
+				if n == "Toroid" then
 					score = score + 30
-				elseif entities[i][1] == "Torkan" then
+					entities[i] = nil
+					if speaker then
+						speaker.playNote("pling",1, 24)
+					end
+				elseif n == "Torkan" then
 					score = score + 50
-				end
-				entities[i] = nil
-				if speaker then
-					speaker.playNote("pling",1, 24)
+					entities[i] = nil
+					if speaker then
+						speaker.playNote("pling",1, 24)
+					end
+				elseif n == "Bacura" then
+					for j=4,maxEntity do
+						if entities[j] ~= nil and entities[j][1] == "Laser" and x==entities[j][3] and
+							(y>=entities[j][4] and y<=entities[j][4]+1) then
+							entities[j] = nil
+						end
+					end
+					if speaker then
+						speaker.playNote("pling",1, 10)
+					end
 				end
 			elseif x==entities[1][3] and y==entities[1][4] then
+				--Hit player
 				entities[i] = nil
 				lives = lives - 1
 				entities[1][2] = "*"
@@ -232,17 +254,20 @@ local function update(scroll)
 				end
 			end
 		elseif entities[i][1] == "Logram" or entities[i][1] == "Domogram" then
+			--Land structures
 			if scroll then
 				entities[i][4] = entities[i][4] + 1
 				y = math.floor(entities[i][4])
 			end
 			if bomb > 6 and x==entities[3][3] and (y==entities[3][4] or y+1==entities[3][4]) then
+				--Hit by bomb
 				entities[i] = nil
 				score = score + 100
 				if speaker then
 					speaker.playNote("pling",1, 24)
 				end
 			elseif (x - entities[1][3]) == (entities[1][4] - y) then
+				--Shooting back
 				entities[nextEntity()] = {"Bullet", "/", x, y, colors.red, -0.8, 0.8}
 				entities[i] = nil
 				if speaker then
@@ -270,8 +295,8 @@ local function update(scroll)
 		end
 	end
 
-	--Move bomb
 	if bomb > 0 and bomb < 8 then
+		--Move bomb
 		entities[3] = {"Bomb", "*", entities[2][3], entities[2][4]+(8-bomb)/2, colors.red}
 		entities[2][5] = colors.cyan
 		if scroll then
@@ -282,6 +307,7 @@ local function update(scroll)
 			speaker.playNote("basedrum",1, 24)
 		end
 	elseif bomb > 0 then
+		--Bomb lands
 		landBomb(entities[2][3], entities[2][4])
 
 		entities[3] = nil
@@ -291,9 +317,10 @@ local function update(scroll)
 		bomb = 0
 
 		if speaker then
-			speaker.playNote("basedrum",0.5, 1)
+			speaker.playNote("basedrum",0.8, 1)
 		end
 	else
+		--Update crosshair color
 		local c = world[scrollY+entities[2][4]]:sub(entities[2][3],entities[2][3])
 		if colorMap[c] == colors.lightGray or c == 'S' or c == "F" then
 			entities[2][5] = colors.orange
@@ -327,6 +354,8 @@ local function spawnEnemies(y)
 			entities[nextEntity()] = {"Logram", "@", x, y-scrollY, colors.gray, 0, 0}
 		elseif c == 'p' then
 			entities[nextEntity()] = {"Domogram", "@", x, y-scrollY, colors.gray, 0, 0}
+		elseif c == '-' then
+			entities[nextEntity()] = {"Bacura", "-", x, y-scrollY+1, colors.gray, 0, 0.3}
 		end
 	end
 end
@@ -364,6 +393,7 @@ while scrollY > 1 and lives > 0 and playing do
 						entities[2][4] = mY-4
 					end
 				end
+				--Weapons
 				if code == 1 then
 					shooting = true
 				elseif code == 2 and bomb == 0 then
@@ -371,9 +401,17 @@ while scrollY > 1 and lives > 0 and playing do
 				end
 			elseif event == "mouse_up" and code == 1 then
 				shooting = false
-			elseif event == "char" and code == "q" then
-				playing = false
-				speaker.playNote("basedrum",1, 6)
+			elseif event == "key" then
+				--Keyboard
+				local k = keys.getName(code)
+				if k == "space" and bomb == 0 then
+					bomb = 1
+				elseif k == "q" then
+					playing = false
+					if speaker then
+						speaker.playNote("basedrum",1, 6)
+					end
+				end
 			end
 			event, code, mX, mY = os.pullEvent()
 		end
@@ -384,7 +422,7 @@ while scrollY > 1 and lives > 0 and playing do
 		--Play music
 		if speaker then
 			if musicFrame % 2 == 0 then
-				speaker.playNote("harp", 0.1, music[musicFrame / 2])
+				speaker.playNote("harp", 0.7, music[musicFrame / 2])
 			end
 			musicFrame = musicFrame + 1
 			if musicFrame / 2 > #music then

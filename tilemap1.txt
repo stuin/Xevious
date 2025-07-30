@@ -9,6 +9,140 @@ TTTTTTTTTTTTTT
 TTTTTTTTTTTTTT
 TTTTTTTTTTTTTT
 TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+     TTTTTTTTT
+        TTTTTT
+ h         TT 
+       g      
+   g      #   
+         #@#S 
+          #   
+ h            
+         @#@  
+              
+              
+              
+              
+RRRRRRRRRRRRRR
+,,,,,,,,,,,,,,
+RRR,,R#R,,,,,,
+RR,,RRR,R,RRRR
+R,,,,,,,,,,,,,
+R,,,,,,,,,,,,,
+R,,,,,,,,,,,,,
+RRRRRRRRR,,,,,
+RR#R@#R#RRRRRR
+RRRRRRRRRRRRRR
+          h  T
+   h     h  TT
+..  h  h   TTT
+.....      TTT
+........    TT
+..........   T
+...........  T
+............  
+............  
+.rrrrr....... 
+r........... g
+rrrrr.......g 
+............  
+rrrr....... g 
+...........   
+rrrr...p...   
+r.r.......   ~
+.r.r....#.   ~
+r.r.r....   ~~
+.r.r.....   ~~
+r.r.r....  g~~
+.r.r....    ~~
+........   ~~w
+...r.r.   ~w~~
+..r.r..   ~~~~
+#r.r@.   ~~~w~
+.....    ~~~~~
+.....   ~~~~~~
+....    ~~~~~~
+...     ~~~~~~
+...    ~~~~~~~
+...g g  ~~~~~~
+..      ~~~~~~
+.   g   ~~~~~~
+. g     ~~~~~~
+        ~~~~~~
+       ~~~~~~~
+       ~~~~~~~
+  ~~~ # ~~~~~~
+ ~~~~ @ ~~~~~~
+~~~~~   ~~~~~~
+~~~~~~~F~w~~~~
+~~~~~  g~~~~~~
+~~~~  # w~w~~~
+~~~~  # ~~~~~~
+ ~~~    ~~~~~~
+    h  ~~~~~~~
+.....  ~~~~~~~
+.....  ~~~~~~~
+ ....  ~~~~~~~
+S ...  ~~~~~~~
+  .#. ~~~~~~~~
+  ... ~~~~~~~~
+  ... ~~~~w~~~
+ .... ~~~~~~~~
+..... ~~~~~~~~
+..... ~w~~~~~~
+....g ~~~~~~~~
+....- ~~~~~~~~
+..... ~~~~~~~~
+.....  ~~~~~~~
+.....  ~~~~~~~
+.....  ~~~~~~~
+......  ~~~~~~
+....#.  ~~~~~~
+....@.  ~~~~~~
+.....tT ~~~~~~
+.....TT ~~~~~~
+.....-T ~~~~~w
+...... ~~~~~~~
+......T~~~~~~~
+......T~~w~~~~
+......T~~~~~~~
+......  ~~~~~~
+.... .. ~~~~~~
+...   ..,~~~~,
+..     .,~~~~,
+  TTTT .,,~~~,
+TTTTTT  .,~~,,
+TTtTTtT .,,~,,
+TTTTTTTT.,,,,,
+TTTTTTTT .,,,,
+TTTTTTT   .,,,
+TTTTTTTT  ..,,
+TTTTTTT -....,
+TTTTT   ..  ..
+TTT   ...   . 
+   .....    . 
+......      . 
+  -..    -  ..
+  ..         .
+ ..        @ .
+..            
+.   -         
+ TTTTTTTT     
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
 T  TTTTTTTTTTT
           TTTT
    ##  g  ..TT
@@ -45,13 +179,13 @@ T  TTTTTTTTTTT
 .... .  .... T
 ...... .. .. T
 .   ....  .. T
-.  ....   .. T
+.  ....  h.. T
 ...... T  .. T
-..... TT  .. T
+..... TTh .. T
 ...  TTT  .. T
 . TTTTTT  .. T
-    TTTT  .. T
-     TT   .. T
+    TTTT h.. T
+     TT   .p T
 .         .. T
 ..        ..ST
 .p.       .. T
@@ -73,13 +207,13 @@ T  TTTTTTTTTTT
 ~~~~~~~~~~~~~~
    ..~~~~~~~~~
    ..     .. T
-   ...    .. T
-    ..    .. T
+ h ...    .. T
+   h..    .. T
     ..    .. T
 T   ..  # .. T
-T  ...    .. T
+T  ...    .. t
 TT ...    .. T
-TT....    .. T
+TT....    .. t
 T . ..    .. T
 T.. ..    .. T
 T. ... #@ .. T
@@ -90,9 +224,9 @@ T. ... #@ .. T
 ..  ..    .. T
 ..  ........ T
 .   ........ T
+.  h..    .. T
 .   ..    .. T
-.   ..    .. T
-.   ..  # .. T
+. h ..  # .. T
 .   ..    .. T
 .   ..    .. T
 .   ..    .. T
@@ -102,8 +236,8 @@ T. ... #@ .. T
 .   ..     ..T
 .   ..  ## ..T
 .   ..     ..T
-......     ..T
-.  ...     .. 
+......  h  ..T
+.  ...   h .. 
 .   ..     ..T
 .   ..     .. 
 .  g..     ..T
@@ -170,9 +304,9 @@ TT  .. ##
     ..........
        T..    
        T..    
+       T..  g 
        T..    
-       T..    
-TT     T..    
+TT     T.. g  
 TTT    T..    
 TTTT   Tp.    
 TTTTT  T..    
